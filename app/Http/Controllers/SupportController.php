@@ -27,5 +27,48 @@ class SupportController extends Controller
         return redirect()->route('support.index');
 
     }
+
+    public function destroy($id)
+    {
+
+        $support = Support::find($id);
+
+        if (!$support) {
+            return redirect()->route('support.index')->with('error', 'Registro não encontrado.');
+        }
+
+        $support->delete();
+
+        return redirect()->route('support.index')->with('success', 'Registro excluído com sucesso.');
+
+    }
+
+    public function edit($id)
+    {
+        $support = Support::find($id);
+
+        if (!$support) {
+            return redirect()->route('support.index')->with('error', 'Registro não encontrado.');
+        }
+
+        return view('site.tickets.edit', compact('support'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $support = Support::find($id);
+
+        if (!$support) {
+            return redirect()->route('support.index')->with('error', 'Registro não encontrado.');
+        }
+
+        $data = $request->only(['nome', 'email', 'telefone', 'duvida']);
+        $support->update($data);
+
+        return redirect()->route('support.index')->with('success', 'Registro atualizado com sucesso.');
+    }
+
+
+    
     
 }

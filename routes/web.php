@@ -21,5 +21,8 @@ Route::get('/', function () {
 
 Route::get('/index', [SupportController::class, 'index'])->name('support.index');
 Route::get('/contact', [SupportController::class, 'create'])->name('support.create');
+Route::get('/contact/{id}/edit', [SupportController::class, 'edit'])->name('support.edit');
+Route::put('/contact/{id}', [SupportController::class, 'update'])->name('support.update');
+Route::delete('/index/{id}',[SupportController::class, 'destroy'])->name('support.destroy');
 Route::post('/contact', [SupportController::class, 'store'])->name('support.store');
 
