@@ -20,7 +20,22 @@ class SupportController extends Controller
 
     public function store(Request $request)
     {
-        
+        $request->validate([
+            'nome' => 'required|max:100|min:4',
+            'email' => 'required',
+            'telefone' => 'required|max:11|min:11', 
+            'duvida' => 'required',
+        ], [
+            'nome.required' => 'O campo nome é obrigatório.',
+            'nome.unique' => 'O nome já está em uso.',
+            'nome.max' => 'O nome não pode ter mais de 100 caracteres.',
+            'nome.min' => 'O nome deve ter pelo menos 4 caracteres.',
+            'email.required' => 'O email é um campo obrigatório',
+            'telefone.required' => 'O campo telefone é obrigatório.',
+            'telefone.max' => 'O telefone deve ter no máximo 11 caracteres.',
+            'telefone.min' => 'O telefone deve ter no mínimo 11 caracteres.',
+            // Adicione outras mensagens conforme necessário.
+        ]);
         $supports = $request->only(['nome', 'email', 'telefone', 'duvida']);
         Support::create($supports);
         

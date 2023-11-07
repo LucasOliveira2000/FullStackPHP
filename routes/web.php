@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SupportController;
 
@@ -15,10 +16,6 @@ use App\Http\Controllers\SupportController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/index', [SupportController::class, 'index'])->name('support.index');
 Route::get('/contact', [SupportController::class, 'create'])->name('support.create');
 Route::get('/contact/{id}/edit', [SupportController::class, 'edit'])->name('support.edit');
@@ -26,3 +23,5 @@ Route::put('/contact/{id}', [SupportController::class, 'update'])->name('support
 Route::delete('/index/{id}',[SupportController::class, 'destroy'])->name('support.destroy');
 Route::post('/contact', [SupportController::class, 'store'])->name('support.store');
 
+//HomePage
+Route::get('/home', [HomeController::class, 'index'])->name('home.index');
