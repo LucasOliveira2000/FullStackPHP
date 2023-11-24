@@ -18,8 +18,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="{{ route('support.index') }}">Registros</a>
-                <a class="nav-link active" href="{{ route('support.store') }}">Contato</a>
+                    @auth
+                    <a class="nav-link active" aria-current="page" href="{{ route('support.index') }}">Registros</a>
+                    <a class="nav-link active" href="{{ route('support.store') }}">Contato</a>
+                    <a class="nav-link active" href="{{route('login.destroy')}}">Logout</a>
+                    @endauth
                 </div>
             </div>
             </div>
@@ -49,6 +52,7 @@
                 <label for="exampleFormControlTextarea1" class="form-label">Dúvida</label>
                 <textarea name="duvida" id="exampleFormControlTextarea1" style="width: 100%; height: 150px;" placeholder="Sua dúvida"></textarea>
             </div>
+           
             <input class="btn btn-primary" type="submit" value="Submit">
         </form>
    

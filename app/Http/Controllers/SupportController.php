@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Support;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SupportController extends Controller
 {
@@ -84,6 +86,11 @@ class SupportController extends Controller
     }
 
 
+    public function createAssinatura(Request $request)
+    {
+      
+
+    }
     
     
 }

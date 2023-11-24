@@ -18,6 +18,7 @@
             <div class="navbar-nav">
               <a class="nav-link active" aria-current="page" href="{{ route('support.index') }}">Registros</a>
               <a class="nav-link active" href="{{ route('support.store') }}">Contato</a>
+              <a class="nav-link active" href="{{route('login.destroy')}}">Logout</a>
             </div>
           </div>
         </div>
