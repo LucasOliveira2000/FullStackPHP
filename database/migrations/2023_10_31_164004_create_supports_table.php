@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('supports', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('nome');
             $table->string('email');
             $table->string('telefone');
             $table->text('duvida');
+            $table->string('hash');
             $table->timestamps();
         });
     }

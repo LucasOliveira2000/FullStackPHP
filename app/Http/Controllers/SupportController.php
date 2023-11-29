@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Support;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class SupportController extends Controller
 {
     public function index()
     {
-        $supports = Support::all();
+        $userId = Auth::id();
+        $supports = Support::where('user_id', $userId)->get();
+
         return view('site.tickets.index')->with('supports', $supports);
     }
 
@@ -36,10 +40,18 @@ class SupportController extends Controller
             'telefone.required' => 'O campo telefone é obrigatório.',
             'telefone.max' => 'O telefone deve ter no máximo 11 caracteres.',
             'telefone.min' => 'O telefone deve ter no mínimo 11 caracteres.',
-            // Adicione outras mensagens conforme necessário.
         ]);
-        $supports = $request->only(['nome', 'email', 'telefone', 'duvida']);
-        Support::create($supports);
+        $userId = Auth::id();
+
+        // Criar um array com os dados do contato e associar o ID do usuário
+        $supportsData = $request->only(['nome', 'email', 'telefone', 'duvida']);
+        $supportsData['user_id'] = $userId;
+
+        $contentForHash = json_encode($supportsData);
+        $supportsData['hash'] = hash('sha256', $contentForHash);
+
+        // Criar o contato associado ao usuário
+        Support::create($supportsData);
         
         return redirect()->route('support.index');
 
@@ -86,7 +98,7 @@ class SupportController extends Controller
     }
 
 
-    public function createAssinatura(Request $request)
+    public function createHash(Request $request)
     {
       
 

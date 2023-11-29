@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PdfParserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\UsersController;
 use App\Http\Middleware\Autenticador;
+use App\Mail\ContactCreated;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,10 +36,21 @@ Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 Route::get('/login', [LoginController::class, 'index'])->name('login.index');
 Route::post('/login', [LoginController::class, 'store'])->name('login.store');
 Route::get('/logout', [LoginController::class, 'destroy'])->name('login.destroy');
-
 Route::get('/register', [UsersController::class, 'create'])->name('users.create');
 Route::post('/register', [UsersController::class, 'store'])->name('users.store');
 
+//This is the PdfParseController
+Route::get('/pdf', [PdfParserController::class, 'index'])->name('Parse.pdf');
+
+//EmailRoute
+Route::get('/email', function() {
+    return new ContactCreated(
+        'Contact de teste',
+        'j-lucas9@hotmail.com',
+        '81988891750',
+        'Olá, este é um email de teste.'
+    );
+});
 
 Route::fallback(function () {
     return redirect()->route('home.index'); 
